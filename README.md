@@ -125,3 +125,21 @@ Whenever we build a web app using Spring framework, we need to deploy our Spring
 Spring boot solves it all for us.
 
 By default it provides a Tomcat server as a default servlet container. Whenever we use a Spring boot starter web dependency, it automatically include a Tomcat server dependency. So whenever we run our SB app as a stand alone, it will run in a default embedded Tomcat server. We will not need to create and deploy an external war file and deploy it into an external Tomcat server. We can rather make a jar file of our SB app and run as a stand alone in an embedded servlet container easily.
+
+## 3. Different was to create a Spring boot project
+
+* Using spring initializr
+* Using Spring Starter Project in STS (Eclipse)
+* Using Sping Boot CLI - command line tool that you can use if you wan to quickly develop a Spring application.
+
+### Using Spring Initializr
+
+Visit start.spring.io. You can also integrate it in your IDE by using plugins.
+
+### Using Spring Starter Project in STS (Eclipse)
+
+Spring team integrated Spring initializr into STS: Spring Tool Suite.
+
+### Using Spring Boot CLI
+
+First you need to install it. Then follow doc commands to create a new project.
