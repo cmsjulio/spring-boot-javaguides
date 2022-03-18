@@ -143,3 +143,13 @@ Spring team integrated Spring initializr into STS: Spring Tool Suite.
 ### Using Spring Boot CLI
 
 First you need to install it. Then follow doc commands to create a new project.
+
+## 4. Create Spring Boot app using Spring initializr
+
+Spring Web:
+* Spring MVC web application
+* Spring Rest API application
+* Apache Tomcat as default embedded container.
+
+Spring Data JPA:
+* Hibernate, persitance.
