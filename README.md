@@ -153,3 +153,24 @@ Spring Web:
 
 Spring Data JPA:
 * Hibernate, persitance.
+
+## 5. Spring Boot Auto-Configuration: Theory
+
+It attempts to automatically configure your Spring application based on the jar dependencies that you have added.
+
+Why do we need Spring Boot Auto Configuration?
+
+Spring based apps have a lot of configurations.
+
+AppContext.java, AppInitializer.java, WebMvcConfig.java, e.g.
+
+Auto-configuration deals with autonomously implementing such configurations. 
+
+Whenever Spring finds a Spring MVC or Hibernate/JPA dependency in the class path, it runs its auto-configuration.
+
+### Thought process
+
+* When spring mvc jar is added into an app, can we auto configure some beans automatically?
+* How about autoconfiguring a data source if Hibernate jar is on the class path?
+* How about autoconfiguring a Dispatcher Servlet if Spring MVC jar is on the class path?
+
