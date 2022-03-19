@@ -174,3 +174,106 @@ Whenever Spring finds a Spring MVC or Hibernate/JPA dependency in the class path
 * How about autoconfiguring a data source if Hibernate jar is on the class path?
 * How about autoconfiguring a Dispatcher Servlet if Spring MVC jar is on the class path?
 
+
+## 6. Spring Boot Auto-Configuratoin: Practical
+
+Where is it implemented?
+
+In pom.xml, spring-boot-starter is the dependency we have to run our SB app as a stand alone, without any server. 
+
+To explore SB autoconfig in action, we change it to spring-boot-starter-web.
+
+Spring-boot-starter-web is used to create: Spring web applications and Spring REST API applications.
+
+To explore it in action, we go to application.properties and add:
+
+```
+logging.level.org.springframework.web=debug
+```
+
+To see all the debug statements from package org.springframework.web.
+
+Then we run the application.
+
+In the output text, we see the embedded Tomcat server on port 8080 that was autoconfigured.
+
+![img_4.png](images/img_4.png)
+
+It has also configured the RequestMappingHandlerMapping, RequestMappingHandlerAdapter, ServletWebServerApplicationContext, ControllerAdvice beans, many things.
+
+To check if dispatcher servlet autoconfig is enabled or not, we remove the .web in the end of the line we added in app.properties. So that:
+
+```
+logging.level.org.springframework=debug
+```
+
+Checking the output, we see in the Positive matches section, that DispatcherServletAutoconfiguration matched.
+
+![img_1.png](images/img_1.png)
+
+A anotação @ConditionalOnClass foi a responsável por habilitar o Dispatcher:
+* Primeiro checou-se a existência da classe no caminho 'org.springframework.web.servlet.DispatcherServlet'.
+* Este check foi realizado pela anotação @ConditionalOnClass.
+* A partir de então, habilitou-se a classe DispatcherServletAutoConfiguration.
+
+The spring-boot-starter-web depedency uses spring-web, spring-webmvc, and many others, from springframework. 
+
+![img_5.png](images/img_5.png)
+
+Spring Boot is built on top of Spring Framework.
+
+All the dependencies listed in the pom.xml are installed in the External Libraries directory:
+
+![img_6.png](images/img_6.png)
+
+So spring-webmvc library -- that is added from the pom.xml dependencies -- contains the org.springframework.web.servlet.DispatcherServlet class.
+
+![img_7.png](images/img_7.png)
+
+In the output, all the classes that matched were enabled.
+
+In the negative matches, we see all the classes which were not found in the respective searched path.
+
+![img_3.png](images/img_3.png)
+
+Whenever you add a dependency in your project, the autoconfigure will search for its path and find the required class (that was previously installed by maven) and then do the match -- i.e., enable it.
+
+All autoconfiguration logic is implemented in spring-boot-autoconfigure.jar.
+
+The autoconfiguration classes are those first listed in Positive and Negative matches, such as:
+AopAutoconfiguration, DispatcherServletAutoConfiguration, ActiveMQAutoConfiguration, etc.
+
+The list of all autoconfiguration classes are available in the spring-boot-autoconfigure JAR file. As:
+
+![img.png](images/img.png)
+
+Whenever the AutoConfiguration classes are triggered (from noticing the existance of related dependencies in External Libraries), these are the classes that are enabled.
+
+Resumo: a percepção da existência de uma dependência nas External Libraries (ou Maven Dependencies) ativa a classe AutoConfiguration relacionada à dependência em questão.
+
+Exemplo do Dispatcher Servlet:
+
+![img.png](images/imgn1.png)
+
+O diretório META-INF, dentro de spring-boot-autoconfigure, contém um arquivo chamado spring.factories -- arquivo este que contém todas as classes AutoConfiguration do Spring.
+
+![img.png](images/imgn2.png)
+
+Exemplo do Servlet:
+
+![img.png](images/imgn3.png)
+
+### Resumindo
+
+Again: Spring Boot configura automaticamente a aplicação Spring conforme encontra dependências presentes nos caminhos devidos.
+
+A simples adição da dependência spring-boot-starter-web (que carrega consigo outras dependências, como vimos: spring-web, spring-webmvc etc.) foi suficiente para adição das libraries webmvc.
+
+Nas libraries webmvc, tínhamos a Dispatcher Servlet.
+
+Esta foi checada e notada, habilitando o AutoConfigure do Dispatcher Servlet ("DispatcherServletAutoConfiguration matched").
+
+A responsaibilidade de habilitar a AutoConfiguration class sempre que houver uma External Library equivalente é da anotação -- no caso, @ConditionalOnClass.
+
+
+
