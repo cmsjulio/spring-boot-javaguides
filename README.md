@@ -386,3 +386,105 @@ Which is an interface that extends ApplicationContext:
 
 And ApplicationContext is nothing but out Spring IOC container.
 
+## 9. Types of Spring Boot Applications - Let us Debug and Understand
+
+Basically, we have as:
+
+Basically, Spring Boot Framework will create applications based on the dependencies that we add in the class path.
+
+There are, basically, 3 types of projects that SB will create:
+
+* **spring-boot-starter**: utilities, stand alone projects, 
+desktop based (GUI) projects. sb-stater does contain any Tomcat embedded server or any other web service.
+* **spring-boot-starter-web**: Sprinb MVC Web Applications, Spring MVC REST API Applications.
+* **spring-boot-start-webflux**: Spring Boot Reactive Web Applications.
+
+These dependencies are really important, as SB Framework will create 3 types of projects based on theses 3 dependencies:
+
+![img.png](images/img9.0.png)
+
+As seen before, the SpringBootApplication.run calls other run methods.
+
+The non static run method will call all the procedures (stopwatch, banner etc.).
+
+One of such procedures is creating the ApplicationContext, as:
+
+![img_1.png](images/img9.1.png)
+
+Which calls a .create method:
+
+![img_2.png](images/img9.2.png)
+
+Which goes into a switch case:
+
+![img_3.png](images/img9.3.png)
+
+I.e.: if webApplicationType is SERVLET, 
+then it will create an object of type AnnotationConfigServletWebServerApplicationContext.
+
+If it is REACTIVE, it will create an object
+of type AnnotationConfigReactiveWebServerApplicationContext.
+
+If it is NONE (default), it will create an object
+of type AnnotationConfigApplicationContext.
+
+### Dependency relationship:
+
+* If we add spring-boot-starter-web dependency, it will switch the
+SERVLET case.
+
+* If we add spring-boot-starter-webflux dependency, it will switch the
+REACTIVE case.
+
+* If we add spring-boot-starter dependency, it will switch the
+default case.
+
+We can debug like that:
+
+![img_4.png](images/img9.4.png)
+
+And that:
+
+![img_5.png](images/img9.5.png)
+
+From the .deduceFromClasspath method, we will see how SB will, based on the dependency that is present in the classpath,
+decides which case should be selected (SERVLET, REACTIVE or default).
+
+It is, basically, a class path check:
+
+![img_6.png](images/img9.6.png)
+
+### Checking each cases
+
+#### spring-boot-starter-web
+Our dependency is spring-boot-starter-web:
+
+![img_7.png](images/img9.7.png)
+
+Debugging it, we have:
+
+![img_9.png](images/img9.9.png)
+
+Spring-boot-starter-web will create an embedded Tomcat server on port 8080.
+
+#### spring-boot-starter
+
+Changing the dependency:
+
+![img_10.png](images/img9.10.png)
+
+Which results:
+
+![img_11.png](images/img9.11.png)
+
+#### spring-boot-webflux
+
+Changing the dependency:
+
+![img_12.png](images/img9.12.png)
+
+Which results:
+
+![img_13.png](images/img9.13.png)
+
+
