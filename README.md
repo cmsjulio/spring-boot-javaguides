@@ -275,5 +275,32 @@ Esta foi checada e notada, habilitando o AutoConfigure do Dispatcher Servlet ("D
 
 A responsaibilidade de habilitar a AutoConfiguration class sempre que houver uma External Library equivalente é da anotação -- no caso, @ConditionalOnClass.
 
+## 7. Spring Boot App Execution Process - Theory
 
+![img.png](images/img7.1.png)
+
+The SpringbootDemoApplication class, 
+in our case, is the Start Class or 
+Spring Boot entry point class.
+
+![img.png](images/img7.2.png)
+
+A clase contém um main method, que contém, internamente, um run method da classe SpringApplication. 
+O run method é um static method.
+
+### How SpringApplication.run method works
+
+The main method tells Java from where to start the program. Internally, the run method is called.
+Then all the logic is dealt with. We can structure the process as follows:
+
+* SB app execution will start from main() method;
+* The main() method internally call SpringApplicatin.run() method;
+* SpringApplication.run() method performs bootstrapping for our sprinb boot application;
+* Starts StopWatch to identify time taken to bootstrap the spring boot application;
+* Prepares environment to run our spring boot application (dev, prod, qa, uat);
+* Print banner (Spring Boot Logo prints on console);
+* Start the IOC container (ApplicationContext) based on the classpath (defaul, Web servlet, Reactive); without SB we would have to do it manually.
+* Refresh context;
+* Trigger Runners (ApplicationRunner or CommandLineRunner);
+* Return Application/context reference (Spring IOC);
 
