@@ -594,3 +594,90 @@ SpringBoot starter (entry point) class.
 
 Instead of using the 3 annotations, we can use the single @SpringBootApplication annotation for the purpose
 of running all the three of them.
+
+
+## 11. Spring Boot Starters - Very Important Feature
+
+Feature provided by SB.
+
+When working on Spring based apps without Spring Boot, we need to manually
+configure the dependencies, ending up with a pom.xml file that looks like
+the following -- the example is of a simple Spring MVC application:
+
+![img.png](images/img11.0.png)
+
+In complex projects, we need to deal with lots of configurations and dependencies,
+and all of them must be compatible in terms of theirs versions.
+
+That is a hard task.
+
+In a project involving Spring MVC + Hibernate we would have:
+* Spring MVC Dependencies
+* Hibernate Dependencies
+* Other Third Parties Dependencies
+
+This is really hard and developers spend lots of time hunting for such dependencies and
+maintaining it all compatible.
+
+**The Spring Boot Starter solves exaclty this problem.**
+
+The starter dependency is a single dependency that manages all the dependencies internally with their
+compatible versions and all the else.
+
+![img_1.png](images/img11.1.png)
+
+Spring boot team developed the starters: we need to only add the starters so SB
+will take care of adding all the required dependencies in their compatible versions.
+
+### Going inside the IDE and checking pom.xml
+
+#### Spring-boot-starter-web
+In there we can see:
+
+![img_2.png](images/img11.2.png)
+
+Clicking on it, we see which dependencies it contains:
+
+![img_3.png](images/img11.3.png)
+
+We do not have to add all the dependencies: tomcat, webmvc, web, json,
+it will provide it for us and manage compatibility.
+
+#### Spring-boot-starter-test
+
+![img_4.png](images/img11.4.png)
+
+Clicking on it, we see its dependencies:
+
+![img_5.png](images/img11.5.png)
+
+And also many more.
+
+Spring-boot-starter-test will contain whatever popular dependencies 
+that are required to develop a JUnit test case.
+
+Adding starter dependencies is better than adding
+dependencies manually -- as SB will take care of
+managing versions and compatibility.
+
+Examples of dependencies:
+
+* spring-boot-starter-data-jpa
+* spring-boot-starter-security
+* spring-boot-starter-web
+* spring-boot-starter-test
+* Many others (30+ in total)
+
+Focusing on what we want to develop, we find the right starter dependencies.
+
+Ex.: for a Spring Web MVC, we add spring-boot-starter-web.
+
+For a Hibernate+Spring project, we use spring-boot-starter-data-jpa.
+
+If we want to add Spring Security, we use spring-boot-starter-security.
+
+For testing, we use spring-boot-starter-test dependency.
+
+Apart from these, SB provides +30 other starter dependencies.
+
+
