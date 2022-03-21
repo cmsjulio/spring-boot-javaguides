@@ -488,3 +488,109 @@ Which results:
 ![img_13.png](images/img9.13.png)
 
 
+## 10. @SpringBootApplication Annotation
+
+A very important annotation that does multiple things when running our SB application.
+
+Should be annoated for the starterclass, in our case, SpringbootDemoApplication:
+
+![img_1.png](images/img10.1.png)
+
+The annotation internally contains 3 annotations:
+
+* @SpringBootConfiguration
+* @EnableAutoConfiguration
+* @ComponentScan
+
+As follows:
+
+![img_2.png](images/img10.2.png)
+
+In a diagram, we can represent it like so:
+
+![img.png](images/img10.0.png)
+
+Therefore, @SpringBootApplication is a combination of both: 
+@SpringBootConfiguration (which internally uses @Configuration), @EnableAutoConfiguration and @ComponentScan.
+
+@SpringBootConfiguration internally using @Configuration:
+
+![img_3.png](images/img10.3.png)
+
+### Understanding @SpringBootConfiguration
+
+@SpringBootConfiguration internally uses @Configuration; in a way that
+understanding @Configuration would be enough for a good understanding of
+@SpringBootConfiguration.
+
+There are 3 types of configurations we can do in a Spring based application:
+
+* XML based configuration.
+* Java based configuration.
+* Annotation based configuration.
+
+In order to implement Java based configurations, we use @Configuration.
+
+We basically create a Java class and annotate with @Configuration, 
+and then that Java class becomes a Configuration class.
+And we can, then, define all the Spring related configuration in that class.
+
+E.g., let us create a class in com.springboot.demo called SpringConfig, as follows:
+
+![img_4.png](images/img10.4.png)
+
+### Understanding @EnableAutoConfiguration
+
+A very important annotation.
+
+It enables AutoConfiguration classes for our SB Application.
+
+Whenevever SB finds a Spring-starter-web dependency in our class path, this annotation basically enables a Dispatcher Servlet AutoConfiguration class and other AutoConfiguration classes.
+
+This annotation is important for enabling AutoConfiguration classes whenever our SB Application will find dependencies in a class path. 
+
+### Understanding @ComponentScan
+
+We use this one to scan Spring components in a particular package. 
+
+@SpringbootApplication internally contains @ComponentScan.
+
+That annotation will automatically scan all the Spring components inside the base package 
+com.springboot.demo and also its sub packages.
+
+That is: @ComponentScan will scan all the Spring components within the base package (com.springboot.demo) 
+plus all the sub packages inside such base package.
+
+A Spring component is class that is annotated with Spring provided annotations, 
+e.g.: a class annotaded with @Component.
+
+Let us create a sub package in com.springboot.demo and create a component inside of is.
+
+That is:
+
+![img_5.png](images/img10.5.png)
+
+And:
+
+![img_6.png](images/img10.6.png)
+
+The @ComponentScan annotation will scan our created component booting our application startup.
+
+It will scan and register this component in Spring ApplicationContext or Spring IOC container.
+
+To get our SpringComponent, we must first understand that the run method returns the ApplicationContext -- which
+is basically a Spring IOC container, containing all the Spring components.
+
+We store it into a variable, get the component and then print it:
+
+![img_8.png](images/img10.8.png)
+
+### Resumindo
+
+@SpringBootApplication annotation will call both @SpringBootConfiguration, @EnableAutoConfiguration and @ComponentScan annotations internally.
+
+Whenever we create a SB Application using SpringInitializr, by default, SB will add such annotation in the
+SpringBoot starter (entry point) class.
+
+Instead of using the 3 annotations, we can use the single @SpringBootApplication annotation for the purpose
+of running all the three of them.
