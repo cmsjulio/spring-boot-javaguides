@@ -304,3 +304,85 @@ Then all the logic is dealt with. We can structure the process as follows:
 * Trigger Runners (ApplicationRunner or CommandLineRunner);
 * Return Application/context reference (Spring IOC);
 
+## 8. Spring Boot App Execution Process - Practical
+
+Let us check the SpringApplication.run static method -- which
+takes SpringbootDemoApplication.class and args as arguments.
+
+![img.png](images/img8.0.png)
+
+We can see that it calls another run static method. By Ctrl+clicking on it, we are sent to:
+
+![img_2.png](images/img8.2.png)
+
+Which also calls another run method. Clicking again:
+
+![img_3.png](images/img8.3.png)
+
+Which is the final run method that is being called.
+
+* Starting the watch to calculate the time consumed in app start:
+
+![img_4.png](images/img8.4.png)
+
+* Preparing environment to run our SB application:
+
+![img_5.png](images/img8.5.png)
+
+After clicking in the .prepareEnvironment method, we have:
+
+![img_6.png](images/img8.6.png)
+
+We do not have to undestand it all, but be aware of the process steps.
+
+* Next step is printing the banner:
+
+![img_7.png](images/img8.7.png)
+
+* Then, the ApplicationContext is created, i.e., creating the Spring IOC Container.
+
+![img_8.png](images/img8.8.png)
+
+After clicking in the method, we have:
+
+![img_9.png](images/img8.9.png)
+
+Checking .create, we see:
+
+![img_10.png](images/img8.10.png)
+
+Which means it will create a Context based on the webApplicationType. Servlet, Reactive or default.
+
+Without SB we would have to start the ApplicationContext manually.
+
+* Then it refreshes the ApplicationContext:
+
+![img_11.png](images/img8.11.png)
+
+* It then stops the Watch (calculates the time taken):
+
+![img_12.png](images/img8.12.png)
+
+* Then it triggers the runners:
+
+![img_13.png](images/img8.13.png)
+
+If we go inside .callRunners, we will see two types of runners, ApplicationRunner
+and CommandLineRunner.
+
+![img_14.png](images/img8.14.png)
+
+* After all, it returns a Context:
+
+![img_1.png](images/img8.15.png)
+
+Context is an object of the ConfigurableApplicationContext class:
+
+![img.png](images/img8.16.png)
+
+Which is an interface that extends ApplicationContext:
+
+![img_1.png](images/img8.17.png)
+
+And ApplicationContext is nothing but out Spring IOC container.
+
