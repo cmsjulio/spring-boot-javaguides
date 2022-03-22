@@ -792,3 +792,27 @@ Steps done in the projects, with comments whenever pertinent.
 
 * mvnw: maven wrapper. We use those files whenever we do not have maven installed in our computer. If you do not install apache maven in your computer, you can use these wrapper files to run your SB app as a maven project. The mvnw.cmd one is for Windows.
 
+## 14. Create Simple Spring Boot REST API - /helloworld
+
+Steps done in the projects, with comments whenever pertinent.
+
+### @Controller
+We use @Controller annotation to make this class a Spring MVC Class: a class that will handle
+web requests.
+
+
+### @ResponseBody
+All the REST APIs that we create inside this controller (GET, POST, PUT, DELETE) should return
+a JSON or XML or other different representation format to the client.
+In order to return these kinds of response, we need to use @ResponseBody annotation.
+
+Basically, @ResponseBody annotation converts Java Object to JSON or XML and send it back to the client.
+It uses HTTP Message converters to do so.
+
+
+### @RestController
+A combination of both @Controller and @ResponseBody annotations.
+
+### @GetMapping
+To make it a Rest Endpoint to handle HTTP GET requests.
+
