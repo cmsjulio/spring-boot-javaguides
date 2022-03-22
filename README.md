@@ -905,3 +905,27 @@ Json output:
     {"firstName":"Guilherme","lastName":"Dias"}]
 
 * Spring MVC internally will convert the list of Object Student into an Array of JSON Objects.
+
+## Spring Boot REST API with Path Variable - @PathVariable
+
+Example of usage:
+
+http://locahost:8080/student/3 <-3 is the path variable.
+http://locahost:8080/student/julio/silva <- julio e silva são path variables.
+
+### @PathVariable
+@PathVariable annotation is used to bind the value of URI path variable to method argument/variable.
+
+### Code
+We will write a REST API that will bind such path variables in our method.
+
+    @GetMapping("/student/{firstName}/{lastName}") //URI template format
+    public Student studentPathVariable (@PathVariable("firstName") String firstName,
+                                        @PathVariable("lastName") String  lastName){
+      return new Student(firstName, lastName);
+    }
+
+### Output
+Output of http://localhost:8080/student/julio/silva
+
+    {"firstName":"julio","lastName":"silva"}

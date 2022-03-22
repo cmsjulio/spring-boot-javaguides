@@ -1,6 +1,7 @@
 package com.springboot.demo;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -44,5 +45,13 @@ public class StudentController {
 
      */
 
+    }
+
+    // @PathVariable annotation is used to bind the value of URI path variable to method argument/variable.
+
+    @GetMapping("/student/{firstName}/{lastName}") //URI template format
+    public Student studentPathVariable (@PathVariable("firstName") String firstName,
+                                        @PathVariable("lastName") String  lastName){
+      return new Student(firstName, lastName);
     }
 }
