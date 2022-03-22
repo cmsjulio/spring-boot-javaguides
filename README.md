@@ -999,3 +999,171 @@ http://localhost:8080/studentQuery?lastName=silva&firstName=julio
 retorna o mesmo json.
 
 
+## 19. Embedded Servers - Tomcat, Jetty and Undertow
+
+Spring Boot applications come with a default embedded server
+that is Tomcat. 
+
+It is a good feature as we will not need to download
+and install web server or application server in our
+machine, as it is provided by default by SB.
+
+Spring boot supports 3 very popular embedded servers:
+
+* Tomcat
+* Jetty
+* Undertow
+
+By default, it comes with Tomcat.
+
+To use the other ones, we need to exclude Tomcat
+dependency from our Spring Boot application and then
+add Jetty or Undertow dependency to it.
+
+Doing so we will be able to run our SB app in an 
+embedded Jetty or Undertow web server.
+
+### What exactly is an Embedded Server
+
+Traditionally, we deploy our Java application following
+the 4 typical steps that follows:
+
+* Download and install Tomcat server in our machine;
+* Package Java application as a WAR file;
+* Deploy WAR file in Tomcat server;
+* Start Tomcat server;
+
+This is how we deploy a WAR file in a Tomcat server.
+
+If we include that Tomcat server as a part of our
+Java application, it becomes an embedded Tomcat 
+server.
+
+The image the follows clarifies the diferrences:
+
+![img.png](images/img19.0.png)
+
+Instead of downloading and setting up the server, we include
+as part of our Java application. 
+
+Instead of deploying the WAR file explicitly in a
+webserver, we can package our application as a Java
+application - JAR instead of WAR.
+
+Therefore, using an embedded server have us skip
+the shown two steps.
+
+**Whenever we include a server as part of our Java
+application, we call it an embedded server.**
+
+### Tomcat as default in sb-starter-web
+
+In pom.xml, we can check inside spring-boot-starter-web
+that it provides a Tomcat server as the default embedded server.
+
+![img_1.png](images/img19.1.png)
+
+Whenever we add a spring-boot-starter-server dependency,
+it will provide an embedded Tomcat server by default.
+
+### Checking which embedded server is running
+
+We can check which embedde server is running by inspecting
+our application's console output:
+
+![img_2.png](images/img19.2.png)
+
+By default, Tomcat runs on port 8080.
+
+To change it, we can just add in applications.properties:
+
+```properties
+server.port=8888
+```
+
+### Using Jetty or Undertow as the server
+
+The Tomcat dependency comes from the spring-boot-starter-web
+dependency. 
+
+To change the server, we first need to exclude the Tomcat
+dependency from it.
+
+After doing so, we add Jetty or Undertow dependency separately.
+
+#### Excluding Tomcat
+
+```xml
+    ...
+<dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-web</artifactId>
+  <exclusions>
+    <exclusion>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-tomcat</artifactId>
+    </exclusion>
+  </exclusions>
+</dependency>
+    ...
+```
+
+After removing Tomcat, we can add other web servers
+such as Jetty or Undertow.
+
+#### Adding Jetty
+
+Right next to last edition, we then add:
+
+```xml
+    ...
+  </exclusions>
+  </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-jetty</artifactId>
+    </dependency>
+    ...
+```
+
+To check, we inspect our app's console output:
+
+![img_3.png](images/img19.3.png)
+
+Where we can see the JettyWebServer as the embedded
+server, running on port 8080.
+
+#### Adding Undertow
+
+We proceed exactly like we did with Jetty.
+
+From where we stopped, we can just change the 
+manually added dependency from Jetty to Undertow
+in our pom.xml file:
+
+```xml
+<dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+      <exclusions>
+        <exclusion>
+          <groupId>org.springframework.boot</groupId>
+          <artifactId>spring-boot-starter-tomcat</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-undertow</artifactId>
+    </dependency>
+
+```
+
+To check, we inspect our app's console output:
+
+![img.png](images/img19.4.png)
+
+Where we can see the Undertow as the embedded
+server, running on port 8080.
