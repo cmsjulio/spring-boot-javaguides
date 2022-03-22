@@ -866,3 +866,20 @@ A basic class with private instance variables and getters and setters is already
     this.lastName = lastName;
     }
     }
+
+### Final thoughts
+
+
+Spring MVC internally uses jackson libraries to convert Java Objects to JSON and
+vice versa.
+
+* The converter name is: MappingJackson2HttpMessageConverter.
+
+* By default, Spring MVC uses JSON as a representational format.
+
+* We could configure it to XML, as well, like so:
+
+
+    @GetMapping(path="/student", 
+    produces=MediaType.APPLICATION_XML_VALUE)
+
