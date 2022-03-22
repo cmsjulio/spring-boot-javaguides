@@ -883,3 +883,25 @@ vice versa.
     @GetMapping(path="/student", 
     produces=MediaType.APPLICATION_XML_VALUE)
 
+## 16. Create Spring Boot REST API that returns list as JSON
+
+    @GetMapping("/students")
+    public List<Student> getStudents(){
+    List<Student> students = new ArrayList<>();
+    students.add(new Student("Julio", "Silva"));
+    students.add(new Student("Julia", "Mendes"));
+    students.add(new Student("João", "Pedro"));
+    students.add(new Student("Gabriel", "Dias"));
+    students.add(new Student("Guilherme", "Dias"));
+    return students;
+    }
+
+Json output:
+
+    [{"firstName":"Julio","lastName":"Silva"},
+    {"firstName":"Julia","lastName":"Mendes"},
+    {"firstName":"João","lastName":"Pedro"},
+    {"firstName":"Gabriel","lastName":"Dias"},
+    {"firstName":"Guilherme","lastName":"Dias"}]
+
+* Spring MVC internally will convert the list of Object Student into an Array of JSON Objects.
