@@ -1167,3 +1167,58 @@ To check, we inspect our app's console output:
 
 Where we can see the Undertow as the embedded
 server, running on port 8080.
+
+
+## 20. Running Spring Boot Apps from the Command Line
+
+Instead of running from the main entry point class
+(public static void main), we will use the command
+line.
+
+Two are the options:
+
+* Using java -jar command;
+* Using Spring boot maven plugin (mvn pring-boot:run)
+
+### Using java -jar command
+
+In the root of the project (in this case, spring-boot-javaguides directory),
+do the following:
+
+If you have maven installed in your machine:
+```shell
+mvn package && cd target && java -jar PROJETO.jar
+```
+
+If you do not have maven installed in your machine
+
+```shell
+./mvnw package && cd target && java -jar PROJETO.jar
+```
+
+* mvn/mnvw command will package the Spring Boot application
+as a JAR file.
+* cd target will go into spring-boot-javaguides/target directory.
+* java -jar PROJETO.jar will run the project name PROJETO.
+
+After doing so, we check the Endpoints in the browser,
+all is working correctly.
+
+### Using mvn plugin
+
+spring-boot:run is the name of the plugin that we are
+running.
+
+In the root of the project (in this case, spring-boot-javaguides directory),
+do the following:
+
+With maven installed:
+
+```shell
+mvn spring-boot:run
+```
+
+Without maven installed:
+```shell
+./mvn spring-boot:run
+```
