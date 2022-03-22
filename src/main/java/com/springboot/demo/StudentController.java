@@ -2,6 +2,7 @@ package com.springboot.demo;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.ArrayList;
@@ -52,6 +53,17 @@ public class StudentController {
     @GetMapping("/student/{firstName}/{lastName}") //URI template format
     public Student studentPathVariable (@PathVariable("firstName") String firstName,
                                         @PathVariable("lastName") String  lastName){
+      return new Student(firstName, lastName);
+    }
+
+    // to handle a request such as: http://localhost:8080/studentQuery?firstName=julio&lastName=silva
+    // we need to use @RequestParam annotation
+    // in the annotation description, it says that it indicates that a method parameter should be bound to a web
+    // request parameter. web request param, aka, query param.
+    // the variable name inside the annotation refers to the QUERY param.
+    @GetMapping("/studentQuery")
+    public Student studentQueryParam (@RequestParam(name = "firstName") String firstName,
+                                      @RequestParam(name="lastName") String lastName){
       return new Student(firstName, lastName);
     }
 }

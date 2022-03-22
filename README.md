@@ -929,3 +929,73 @@ We will write a REST API that will bind such path variables in our method.
 Output of http://localhost:8080/student/julio/silva
 
     {"firstName":"julio","lastName":"silva"}
+
+## 18. Spring Boot REST API with Request Param - @RequestParam
+
+We will create a REST API that handles Request Parameters or Query Parameters.
+
+### Introduction
+
+Ex.:
+
+http://localhost:8080/student?firstName=julio
+
+Before the question mark, we have the REST Endpoint URL,
+after it, we have the key-value pairs. 
+
+firstName is the key, julio is the value.
+
+In path variables, there is no question mark.
+
+We can also have multiple key-value pairs, as in:
+
+http://localhost:8080/student?firstName=julio&lastName=silva
+
+### Pratical
+
+To handle a request such as: 
+
+http://localhost:8080/studentQuery?firstName=julio&lastName=silva
+
+we need to use @RequestParam annotation.
+
+In the annotation description, it says that it indicates that a method parameter should be bound to a web
+request parameter. 
+
+Web request paramameter, a.k.a., query paramameter.
+
+The variable name inside the annotation refers to the QUERY param.
+
+### Code
+
+
+```java
+
+@GetMapping("/studentQuery")
+    public Student studentQueryParam (@RequestParam(name = "firstName") String firstName,
+                                      @RequestParam(name="lastName") String lastName){
+      return new Student(firstName, lastName);
+    }
+
+```
+
+### Output
+
+Output de:
+
+http://localhost:8080/studentQuery?firstName=julio&lastName=silva
+
+```json
+{"firstName":"julio","lastName":"silva"}
+```
+
+Note-se que é preciso passar as duas variáveis, necessariamente,
+para não dar erro. Passando apenas uma delas ou nenhuma, retorna 400.
+
+A ordem em que as variáveis são enviadas não importa.
+
+http://localhost:8080/studentQuery?lastName=silva&firstName=julio
+
+retorna o mesmo json.
+
+
