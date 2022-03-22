@@ -680,4 +680,101 @@ For testing, we use spring-boot-starter-test dependency.
 
 Apart from these, SB provides +30 other starter dependencies.
 
+## 12. Spring Boot Starter Parent
 
+Whenever you create a SB application you will have that
+dependency as a parent for you application.
+
+![img.png](images/img12.0.png)
+
+Whenever you create a SB app with Spring Initializr, 
+it will add this dependency as a parent dependency for
+your application.
+
+This parent dependency will provide default configurations
+for your SB application.
+
+### Java version
+
+By clicking inside the dependency we see:
+
+![img_1.png](images/img12.1.png)
+
+Stating that our Java version is 1.8.
+
+In case we want a different Java version, we can
+override that property and specify the Java version
+that we want.
+
+We could add, in pom.xml, after parent section:
+
+```
+...
+</parent>
+<groupId>com.example</groupId>
+<artifactId>springboot-demo</artifactId>
+<version>0.0.1-SNAPSHOT</version>
+<name>springboot-demo</name>
+<description>Demo project for Spring Boot</description>
+<properties>
+  <java.version>16</java.version>
+</properties>
+...
+```
+
+If you remove that properties section for your pom.xml,
+then SB will provide the Java version that is specified
+in the parent dependency.
+
+### Maven plugins
+
+Another default configuration that spring-boot-starter-parent
+provides is the plugins.
+
+We do not have to add a maven SB plugin in our application.
+The SB starter parent will provide a lot of maven plugins
+that are required for our maven project.
+
+![img_2.png](images/img12.2.png)
+
+### Dependencies version management
+
+Inside spring-boot-starter-parent we find 
+spring-boot-dependencies:
+
+![img_3.png](images/img12.3.png)
+
+Diving into it, we find another properties section:
+
+![img_4.png](images/img12.4.png)
+
+Where we can see all the dependencies versioning.
+
+**These presented are the default versions.**
+
+We can override them according to our needs.
+
+### Versioning starter dependencies
+
+If we check our pom.xml file, we notice that the
+dependencies added do not contain any specific
+version attribute:
+
+![img_5.png](images/img12.5.png)
+
+There only groupId and artifactId.
+
+That is because they are set to the default version,
+which is the same as the spring-boot-starter-parent
+dependency version. In our case:
+
+![img_6.png](images/img12.6.png)
+
+Unless we state something different.
+
+If we go inside spring-boot-starter-web, for example,
+we will see the right versioning of all starter
+dependencies added as the same as the one of
+spring-boot-starter-parent (2.6.4):
+
+![img_7.png](images/img12.7.png)
