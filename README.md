@@ -1222,3 +1222,144 @@ Without maven installed:
 ```shell
 ./mvn spring-boot:run
 ```
+
+
+# 21. Deploy Step by Step Spring Boot WAR File to External Tomcat Server
+
+We will use an external Tomcat server to deploy our Spring
+Boot WAR file application.
+
+When using JBoss, we must proceed that way.
+
+Always remembering:
+
+* JAR -> standalone.
+* WAR -> web applications.
+
+### What comes in a WAR project
+
+Three are the things that comes differently in a WAR project.
+
+#### In pom.xml, we have the package set to WAR:
+
+![img.png](images/img21.0.png)
+
+#### Tomcat comes with scope provided:
+
+![img_1.png](images/img21.1.png)
+
+Because we want to add our project into another Tomcat
+web server. When such is the case, we must use the
+scope provided.
+
+#### In the source directory, we have a Servlet Initializer class.
+
+![img_2.png](images/img21.2.png)
+
+This class is needed to deploy our SB app as a WAR file
+in an external Tomcat server.
+
+Because this class internally contains Servlet configurations
+that are needed.
+
+The rest of the things remains the same.
+
+### Building a Basic Application
+
+First, we write a basic endpoint.
+
+```java
+...
+@SpringBootApplication
+@RestController
+public class SpringbootWarDemoApplication {
+
+  @GetMapping("/greeting")
+  public String greeting(){
+    return "Spring Boot WAR Demo";
+  }
+
+  public static void main(String[] args) {
+    SpringApplication.run(SpringbootWarDemoApplication.class, args);
+  }
+
+}
+```
+Then we got the project root and do a
+
+```shell
+mvn package
+```
+
+That should build our project.
+
+![img_3.png](images/img21.3.png)
+
+The WAR file should be created in the target directory.
+
+![img_4.png](images/img21.4.png)
+
+
+### Downloading Tomcat
+
+We google "download tomcat 9", click on first link,
+then download and install it.
+
+It must be version 9, the following steps will not
+work with version 10.
+
+In Mint, downloading the TAR file, extrating it and
+reading through the documentation should be enough.
+
+It runs with a simple
+
+```shell
+PATH/bin/startup.sh
+```
+
+on default localhost:8080.
+
+![img_5.png](images/img21.5.png)
+
+### Deploying our WAR file in Tomcat
+
+We basically copy our WAR file into the webapps folder
+inside Tomcat source directory.
+
+![img_6.png](images/img21.6.png)
+
+```shell
+cd target && 
+cp springboot-war-demo-0.0.1-SNAPSHOT.war /home/wmancciny/Downloads/apache-tomcat-10.0.18/webapps/
+```
+
+Then we run the server with:
+
+```shell
+~/Downloads/apache-tomcat-10.0.18$ ./bin/startup.sh
+```
+
+### Accessing our Endpoint
+
+Because we deployed in an external Tomcat server,
+we cannot access our endpoint directly with
+
+```
+localhost:8080/greeting
+```
+
+We must comply with Tomcat's application context,
+which the application name, i.d., the WAR file name.
+
+In our case, the URL:
+
+```
+http://localhost:8080/springboot-war-demo-0.0.1-SNAPSHOT/greeting
+```
+
+Will give:
+
+![img_7.png](images/img21.7.png)
+
+As expected.
+
