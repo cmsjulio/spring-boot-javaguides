@@ -778,3 +778,17 @@ dependencies added as the same as the one of
 spring-boot-starter-parent (2.6.4):
 
 ![img_7.png](images/img12.7.png)
+
+## 13. Creating a Spring Boot Application
+
+Creating a basic, JAR, application with 
+spring-boot-starter-web only.
+
+The JAR (standalone) will run in an embedded Tomcat web container.
+
+Steps done in the projects, with comments whenever pertinent.
+
+* Keep all your application level configuration in the application.properties file.
+
+* mvnw: maven wrapper. We use those files whenever we do not have maven installed in our computer. If you do not install apache maven in your computer, you can use these wrapper files to run your SB app as a maven project. The mvnw.cmd one is for Windows.
+
