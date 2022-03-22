@@ -37,4 +37,10 @@ public class HelloWorldController {
   public String helloWorld(){
     return "Hello World!";
   }
+
+  @GetMapping("/helloworldApp")
+  public String helloWorld2(){
+    return "Hello World agaaaain!";
+  }
+
 }

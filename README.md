@@ -1363,3 +1363,26 @@ Will give:
 
 As expected.
 
+## 22. Spring Boot Dev Tools
+
+### What is the problem tha it solves?
+
+In Spring boot application development we do a lot of changes.
+
+Whatever change you make in your Spring Boot application will
+take a manual restart to be implemented.
+
+That is a very tedious process.
+
+The solution found was:
+
+Applications should be restarted automatically whenever we 
+do some changes in our Spring Boot application.
+
+Such automatic restart is what spring-boot-devtools dependency
+provides.
+
+If we create a new endpoint while our app is running,
+it will not reload automatically unless we are using
+the spring-boot-devtools.
+
