@@ -906,7 +906,7 @@ Json output:
 
 * Spring MVC internally will convert the list of Object Student into an Array of JSON Objects.
 
-## Spring Boot REST API with Path Variable - @PathVariable
+## 17. Spring Boot REST API with Path Variable - @PathVariable
 
 Example of usage:
 
