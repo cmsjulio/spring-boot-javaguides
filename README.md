@@ -816,3 +816,53 @@ A combination of both @Controller and @ResponseBody annotations.
 ### @GetMapping
 To make it a Rest Endpoint to handle HTTP GET requests.
 
+## 15. Spring Boot REST API returns Java Bean
+
+Steps done in the projects, with comments whenever pertinent.
+
+In here we sent a Java object in JSON format as an output.
+
+### How come a Java object is being returned as JSON?
+
+How comes a Java Object is being returned as a JSON -- as: {"firstName":"Julio","lastName":"Silva"}?
+
+That is the beauty of Spring MVC: it uses internal jackson libraries and message converters to convert
+Java objects into JSON.
+
+Remembering: @RestController internally uses @ResponseBody annotation, which uses HTTP Message converters
+to convert the return value (Java object) to HTTP response body (e.g.:JSON), based on the content-type
+in the request HTTP header.
+
+### Basic Java Bean
+
+A basic class with private instance variables and getters and setters is already a Java Bean.
+
+    
+    public class Student {
+    private String firstName;
+    private String lastName;
+    
+    public Student() {
+    }
+    
+    public Student(String firstName, String lastName) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    }
+    
+    public String getFirstName() {
+    return firstName;
+    }
+    
+    public void setFirstName(String firstName) {
+    this.firstName = firstName;
+    }
+    
+    public String getLastName() {
+    return lastName;
+    }
+    
+    public void setLastName(String lastName) {
+    this.lastName = lastName;
+    }
+    }
